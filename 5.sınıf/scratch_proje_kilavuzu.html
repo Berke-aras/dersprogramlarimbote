@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Scratch Proje Kılavuzu – Merhaba Scratch! 🐱</title>
+  <style>
+    :root {
+      --orange: #ff8c00;
+      --orange-light: #ffa733;
+      --orange-pale: #fff3e0;
+      --blue: #4c97ff;
+      --purple: #9966ff;
+      --green: #59c059;
+      --yellow: #ffab19;
+      --dark: #1a1a2e;
+      --card: #ffffff;
+      --bg: #f0f4ff;
+      --shadow: 0 4px 18px rgba(0,0,0,0.09);
+      --radius: 14px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: var(--bg);
+      color: var(--dark);
+      line-height: 1.65;
+    }
+
+    /* ── HEADER ──────────────────────────────── */
+    header {
+      background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
+      color: white;
+      padding: 40px 20px;
+      text-align: center;
+    }
+    header h1 { font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 800; }
+    header p  { font-size: 1.1rem; opacity: 0.85; margin-top: 8px; }
+    .header-badges { margin-top: 16px; display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+    .badge {
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.3);
+      border-radius: 20px;
+      padding: 5px 16px;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    /* ── LAYOUT ──────────────────────────────── */
+    .container { max-width: 960px; margin: 0 auto; padding: 40px 20px; }
+
+    /* ── GOAL BOX ────────────────────────────── */
+    .goal-box {
+      background: linear-gradient(135deg, var(--orange), #ff6b35);
+      color: white;
+      border-radius: var(--radius);
+      padding: 28px 32px;
+      margin-bottom: 36px;
+      display: flex;
+      align-items: flex-start;
+      gap: 20px;
+    }
+    .goal-box .goal-icon { font-size: 3rem; flex-shrink: 0; }
+    .goal-box h2 { font-size: 1.3rem; margin-bottom: 8px; }
+    .goal-box p  { font-size: 0.95rem; opacity: 0.95; }
+    .goal-box ul { padding-left: 18px; margin-top: 8px; font-size: 0.92rem; }
+    .goal-box ul li { margin-bottom: 4px; }
+
+    /* ── STEPS ───────────────────────────────── */
+    .steps-section { margin-bottom: 40px; }
+    .steps-section h2 {
+      font-size: 1.5rem;
+      margin-bottom: 24px;
+      color: var(--dark);
+      display: flex; align-items: center; gap: 10px;
+    }
+
+    .step {
+      background: var(--card);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      margin-bottom: 20px;
+      overflow: hidden;
+      transition: box-shadow 0.2s;
+    }
+    .step:hover { box-shadow: 0 8px 30px rgba(0,0,0,0.13); }
+
+    .step-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 18px 24px;
+      cursor: pointer;
+      user-select: none;
+      background: white;
+    }
+    .step-num {
+      width: 44px; height: 44px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 900; font-size: 1.2rem; color: white; flex-shrink: 0;
+    }
+    .step-title { font-size: 1.05rem; font-weight: 700; flex: 1; }
+    .step-tag {
+      background: #f1f5f9; border-radius: 6px;
+      padding: 4px 10px; font-size: 0.78rem;
+      font-weight: 600; color: #64748b;
+    }
+    .step-arrow {
+      font-size: 0.9rem; transition: transform 0.3s; color: #94a3b8;
+    }
+    .step.open .step-arrow { transform: rotate(90deg); }
+
+    .step-body {
+      padding: 0 24px;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease, padding 0.3s;
+    }
+    .step.open .step-body {
+      max-height: 600px;
+      padding: 0 24px 24px;
+    }
+
+    .step-description { font-size: 0.95rem; color: #444; margin-bottom: 14px; }
+
+    /* ── BLOCK VISUAL ────────────────────────── */
+    .block-visual {
+      background: #1e293b;
+      border-radius: 10px;
+      padding: 20px;
+      margin: 14px 0;
+    }
+    .block-visual .bv-label {
+      color: #94a3b8; font-size: 0.78rem; font-weight: 700;
+      text-transform: uppercase; margin-bottom: 12px; letter-spacing: 0.5px;
+    }
+    .sc-block {
+      display: inline-flex; align-items: center; gap: 6px;
+      border-radius: 6px; padding: 8px 14px 8px 18px;
+      font-size: 0.88rem; font-weight: 700; color: white;
+      margin: 3px; position: relative;
+      box-shadow: 0 3px 0 rgba(0,0,0,0.35);
+    }
+    /* puzzle notch on top */
+    .sc-block::before {
+      content: '';
+      position: absolute; top: -6px; left: 14px;
+      border-left: 7px solid transparent;
+      border-right: 7px solid transparent;
+    }
+    .sc-block.notch-bottom::after {
+      content: '';
+      position: absolute; bottom: -6px; left: 14px;
+      border-left: 7px solid transparent;
+      border-right: 7px solid transparent;
+    }
+    .b-events  { background: #ffab19; }
+    .b-motion  { background: #4c97ff; }
+    .b-looks   { background: #9966ff; }
+    .b-control { background: #ff8c00; }
+    .b-sound   { background: #cf63cf; }
+
+    .block-stack-v {
+      display: flex; flex-direction: column; gap: 2px;
+      background: #2d3748; border-radius: 10px;
+      padding: 16px 20px; display: inline-flex; align-items: flex-start;
+    }
+
+    /* ── TIP / WARNING ───────────────────────── */
+    .tip-box, .warn-box {
+      border-radius: 8px; padding: 12px 16px;
+      font-size: 0.88rem; margin-top: 10px;
+      display: flex; gap: 10px; align-items: flex-start;
+    }
+    .tip-box  { background: #dcfce7; border-left: 4px solid #16a34a; }
+    .warn-box { background: #fef9c3; border-left: 4px solid #ca8a04; }
+    .tip-box .icon, .warn-box .icon { font-size: 1.1rem; flex-shrink: 0; }
+
+    /* ── LEVEL EXTRAS ────────────────────────── */
+    .level-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 14px;
+      margin-bottom: 40px;
+    }
+    .level-card {
+      border-radius: var(--radius);
+      padding: 22px;
+      color: white;
+      box-shadow: var(--shadow);
+    }
+    .level-card.basic  { background: linear-gradient(135deg, #4c97ff, #2a6ed4); }
+    .level-card.mid    { background: linear-gradient(135deg, #ff8c00, #cc6600); }
+    .level-card.adv    { background: linear-gradient(135deg, #9966ff, #7a4fcc); }
+    .level-card h3 { font-size: 1rem; margin-bottom: 10px; }
+    .level-card ul { padding-left: 16px; font-size: 0.85rem; line-height: 1.7; }
+
+    /* ── CHECKLIST ───────────────────────────── */
+    .checklist {
+      background: var(--card);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 30px;
+      margin-bottom: 40px;
+    }
+    .checklist h2 { font-size: 1.3rem; margin-bottom: 18px; color: var(--dark); }
+    .check-item {
+      display: flex; align-items: center; gap: 14px;
+      padding: 12px 0;
+      border-bottom: 1px solid #f1f5f9;
+      cursor: pointer;
+      transition: background 0.15s;
+      border-radius: 6px;
+      padding-left: 8px;
+    }
+    .check-item:hover { background: #f8fafc; }
+    .check-item:last-child { border-bottom: none; }
+    .check-box {
+      width: 22px; height: 22px;
+      border: 2px solid #cbd5e1;
+      border-radius: 5px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; transition: all 0.2s;
+      font-size: 0.9rem;
+    }
+    .check-item.done .check-box {
+      background: var(--green); border-color: var(--green); color: white;
+    }
+    .check-label { font-size: 0.95rem; color: #374151; }
+    .check-item.done .check-label { text-decoration: line-through; color: #9ca3af; }
+
+    /* ── PROGRESS ────────────────────────────── */
+    .progress-wrap {
+      background: #e2e8f0; border-radius: 20px; height: 12px;
+      overflow: hidden; margin: 16px 0;
+    }
+    .progress-bar {
+      height: 100%; border-radius: 20px;
+      background: linear-gradient(90deg, var(--green), #22c55e);
+      transition: width 0.4s ease;
+    }
+    .progress-label { font-size: 0.85rem; color: #64748b; text-align: right; }
+
+    /* ── FOOTER ──────────────────────────────── */
+    footer {
+      background: #1e293b;
+      color: #94a3b8;
+      text-align: center;
+      padding: 24px;
+      font-size: 0.88rem;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>🐱 Merhaba Scratch!</h1>
+  <p>İlk Scratch Projem – Adım Adım Kılavuz</p>
+  <div class="header-badges">
+    <span class="badge">5. Sınıf</span>
+    <span class="badge">Blok Tabanlı Programlama</span>
+    <span class="badge">BTY.5.6.4</span>
+    <span class="badge">⏱ ~20 dakika</span>
+  </div>
+</header>
+
+<div class="container">
+
+  <!-- GOAL BOX -->
+  <div class="goal-box">
+    <div class="goal-icon">🎯</div>
+    <div>
+      <h2>Bu projede ne yapacağız?</h2>
+      <p>Scratch'te bir kedi kuklasını hareket ettiren, konuşturan ve kenara gelince geri döndüren <strong>ilk animasyon projenizi</strong> oluşturacaksınız!</p>
+      <ul>
+        <li>Scratch arayüzünü tanımak</li>
+        <li>Kod bloklarını sürükleyip birleştirmek</li>
+        <li>Yeşil bayrağa basarak projeyi test etmek</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ─── STEPS ──────────────────────────────── -->
+  <div class="steps-section">
+    <h2>🪜 Adım Adım Talimatlar</h2>
+
+    <!-- STEP 1 -->
+    <div class="step open">
+      <div class="step-header" onclick="toggleStep(this)">
+        <div class="step-num" style="background:#4c97ff">1</div>
+        <div class="step-title">Scratch'i Açın</div>
+        <span class="step-tag">⏱ 1 dk</span>
+        <span class="step-arrow">▶</span>
+      </div>
+      <div class="step-body">
+        <p class="step-description">Tarayıcınızı açın ve adres çubuğuna <strong>scratch.mit.edu</strong> yazın. Sayfanın ortasında yer alan turuncu <strong>"Yaratmaya Başla"</strong> düğmesine tıklayın.</p>
+        <div class="tip-box">
+          <span class="icon">💡</span>
+          <span>İnternet yoksa masaüstünde <strong>Scratch Desktop</strong> uygulamasını açabilirsiniz. İkisi de aynı şekilde çalışır!</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 2 -->
+    <div class="step">
+      <div class="step-header" onclick="toggleStep(this)">
+        <div class="step-num" style="background:#9966ff">2</div>
+        <div class="step-title">Sahnedeki Kediyi Tanıyın</div>
+        <span class="step-tag">⏱ 1 dk</span>
+        <span class="step-arrow">▶</span>
+      </div>
+      <div class="step-body">
+        <p class="step-description">Scratch açıldığında sahnenin ortasında bir <strong>kedi</strong> göreceksiniz. Bu, Scratch'in maskotudur! Sağ alt köşedeki <em>Kukla Alanı</em>'nda da "Sprite1" yazdığını fark edin.</p>
+        <div class="tip-box">
+          <span class="icon">🐱</span>
+          <span>Kediyi tıklayıp sürükleyerek sahnenin istediğiniz yerine koyabilirsiniz.</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 3 -->
+    <div class="step">
+      <div class="step-header" onclick="toggleStep(this)">
+        <div class="step-num" style="background:#ffab19">3</div>
+        <div class="step-title">İlk Bloğu Ekleyin: Yeşil Bayrak</div>
+        <span class="step-tag">Olaylar (Sarı)</span>
+        <span class="step-arrow">▶</span>
+      </div>
+      <div class="step-body">
+        <p class="step-description">Sol panelden <strong>Olaylar</strong> (sarı renkli) kategorisine tıklayın. <strong>"yeşil bayrak tıklandığında"</strong> bloğunu bulun ve çalışma alanına sürükleyin.</p>
+        <div class="block-visual">
+          <div class="bv-label">Ekleyeceğiniz blok:</div>
+          <div class="block-stack-v">
+            <div class="sc-block b-events">🚩 yeşil bayrak tıklandığında</div>
+          </div>
+        </div>
+        <div class="tip-box">
+          <span class="icon">💡</span>
+          <span>Bu blok olmadan projeniz çalışmaz! Hep en üstte olmalı.</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 4 -->
+    <div class="step">
+      <div class="step-header" onclick="toggleStep(this)">
+        <div class="step-num" style="background:#4c97ff">4</div>
+        <div class="step-title">Hareketi Ekleyin</div>
+        <span class="step-tag">Hareket (Mavi)</span>
+        <span class="step-arrow">▶</span>
+      </div>
+      <div class="step-body">
+        <p class="step-description"><strong>Hareket</strong> kategorisinden (mavi bloklar) <strong>"10 adım git"</strong> bloğunu alın ve sarı bloğun hemen <em>altına</em> tutturun. "Klik" sesi duyduğunuzda yapıştı demektir!</p>
+        <div class="block-visual">
+          <div class="bv-label">Blok dizisi:</div>
+          <div class="block-stack-v">
+            <div class="sc-block b-events">🚩 yeşil bayrak tıklandığında</div>
+            <div class="sc-block b-motion">→ 10 adım git</div>
+          </div>
+        </div>
+        <div class="warn-box">
+          <span class="icon">⚠️</span>
+          <span>Blok yan yana değil, <strong>alt alta</strong> birbirine yapışmalı. Yanlış olursa geri al (Ctrl+Z) ve tekrar dene!</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 5 -->
+    <div class="step">
+      <div class="step-header" onclick="toggleStep(this)">
+        <div class="step-num" style="background:#9966ff">5</div>
+        <div class="step-title">Konuşma Ekleyin</div>
+        <span class="step-tag">Görünüm (Mor)</span>
+        <span class="step-arrow">▶</span>
+      </div>
+      <div class="step-body">
+        <p class="step-description"><strong>Görünüm</strong> kategorisinden (mor bloklar) <strong>"2 saniye boyunca Merhaba! de"</strong> bloğunu alıp alta ekleyin. <strong>"Merhaba!"</strong> yazan kutucuğa tıklayarak kendi adınızı yazın!</p>
+        <div class="block-visual">
+          <div class="bv-label">Blok dizisi:</div>
+          <div class="block-stack-v">
+            <div class="sc-block b-events">🚩 yeşil bayrak tıklandığında</div>
+            <div class="sc-block b-motion">→ 10 adım git</div>
+            <div class="sc-block b-looks">💬 2 sn boyunca Merhaba, ben [adın]! de</div>
+          </div>
+        </div>
+        <div class="tip-box">
+          <span class="icon">✏️</span>
+          <span>Kutucuğa çift tıklayarak içindeki metni değiştirebilirsiniz. Kendi adınızı veya istediğiniz herhangi bir şey yazın!</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 6 -->
+    <div class="step">
+      <div class="step-header" onclick="toggleStep(this)">
+        <div class="step-num" style="background:#ff8c00">6</div>
+        <div class="step-title">Bekleme Ekleyin</div>
+        <span class="step-tag">Kontrol (Turuncu)</span>
+        <span class="step-arrow">▶</span>
+      </div>
+      <div class="step-body">
+        <p class="step-description"><strong>Kontrol</strong> kategorisinden <strong>"1 saniye bekle"</strong> bloğunu ekleyin. Bu, konuşma balonunun bitmesini bekler.</p>
+        <div class="block-visual">
+          <div class="bv-label">Güncel blok dizisi:</div>
+          <div class="block-stack-v">
+            <div class="sc-block b-events">🚩 yeşil bayrak tıklandığında</div>
+            <div class="sc-block b-motion">→ 10 adım git</div>
+            <div class="sc-block b-looks">💬 2 sn boyunca Merhaba! de</div>
+            <div class="sc-block b-control">⏱ 1 saniye bekle</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 7 -->
+    <div class="step">
+      <div class="step-header" onclick="toggleStep(this)">
+        <div class="step-num" style="background:#4c97ff">7</div>
+        <div class="step-title">Kenara Gelince Geri Dönsün</div>
+        <span class="step-tag">Hareket (Mavi)</span>
+        <span class="step-arrow">▶</span>
+      </div>
+      <div class="step-body">
+        <p class="step-description">Yine <strong>Hareket</strong> kategorisinden <strong>"kenara geldiyse sek"</strong> bloğunu ekleyin. Böylece kedi ekran kenarına çarpınca geri döner!</p>
+        <div class="block-visual">
+          <div class="bv-label">Tamamlanmış kod dizisi:</div>
+          <div class="block-stack-v">
+            <div class="sc-block b-events">🚩 yeşil bayrak tıklandığında</div>
+            <div class="sc-block b-motion">→ 10 adım git</div>
+            <div class="sc-block b-looks">💬 2 sn boyunca Merhaba! de</div>
+            <div class="sc-block b-control">⏱ 1 saniye bekle</div>
+            <div class="sc-block b-motion">↩ kenara geldiyse sek</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 8 -->
+    <div class="step">
+      <div class="step-header" onclick="toggleStep(this)">
+        <div class="step-num" style="background:#59c059">8</div>
+        <div class="step-title">Test Edin! 🎉</div>
+        <span class="step-tag">Bitirme</span>
+        <span class="step-arrow">▶</span>
+      </div>
+      <div class="step-body">
+        <p class="step-description">Sahnedeki <strong>yeşil bayrağa</strong> ▶ tıklayın. Kedi harekete geçti mi? "Merhaba!" dedi mi? Harika, <strong>ilk projeniz hazır!</strong></p>
+        <div class="tip-box">
+          <span class="icon">🎊</span>
+          <span>Tebrikler! Şimdi kırmızı sekizgene ⏹ basarak durdurun ve kodu bir daha inceleyin.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LEVEL EXTRAS -->
+  <h2 style="font-size:1.4rem; margin-bottom:18px;">⭐ Hazırsan Devam Et!</h2>
+  <div class="level-grid">
+    <div class="level-card basic">
+      <h3>🟦 Temel Görev</h3>
+      <ul>
+        <li>Adım 1–6'yı tamamla</li>
+        <li>Kediyi hareket ettir</li>
+        <li>Konuşma balonunu ekle</li>
+      </ul>
+    </div>
+    <div class="level-card mid">
+      <h3>🟠 Orta Görev</h3>
+      <ul>
+        <li>Adım 1–8'i tamamla</li>
+        <li>Kenara çarpınca geri dönsün</li>
+        <li>Farklı bir metin yaz</li>
+      </ul>
+    </div>
+    <div class="level-card adv">
+      <h3>🟣 İleri Görev</h3>
+      <ul>
+        <li>Farklı bir kukla ekle</li>
+        <li>Arka plan (dekor) değiştir</li>
+        <li>"miyav" sesi ekle</li>
+        <li>Renk efekti dene</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- CHECKLIST -->
+  <div class="checklist">
+    <h2>✅ Kontrol Listesi</h2>
+    <p style="font-size:0.9rem; color:#64748b; margin-bottom:16px;">Her adımı tamamlayınca üzerine tıkla!</p>
+
+    <div class="progress-wrap">
+      <div class="progress-bar" id="progress-bar" style="width:0%"></div>
+    </div>
+    <div class="progress-label" id="progress-label">0 / 6 tamamlandı</div>
+
+    <div class="check-item" onclick="toggleCheck(this)">
+      <div class="check-box"></div>
+      <span class="check-label">Scratch'i açtım ve "Yaratmaya Başla" dedim</span>
+    </div>
+    <div class="check-item" onclick="toggleCheck(this)">
+      <div class="check-box"></div>
+      <span class="check-label">"yeşil bayrak tıklandığında" bloğunu ekledim</span>
+    </div>
+    <div class="check-item" onclick="toggleCheck(this)">
+      <div class="check-box"></div>
+      <span class="check-label">"10 adım git" bloğunu bağladım</span>
+    </div>
+    <div class="check-item" onclick="toggleCheck(this)">
+      <div class="check-box"></div>
+      <span class="check-label">Konuşma balonunu ekledim ve adımı yazdım</span>
+    </div>
+    <div class="check-item" onclick="toggleCheck(this)">
+      <div class="check-box"></div>
+      <span class="check-label">Yeşil bayrağa basarak test ettim</span>
+    </div>
+    <div class="check-item" onclick="toggleCheck(this)">
+      <div class="check-box"></div>
+      <span class="check-label">Projemi arkadaşıma gösterdim</span>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <p>🐱 5. Sınıf Bilişim Teknolojileri ve Yazılım · TYMM – BTY.5.6.4 · Blok Tabanlı Ortamda Yazılım Geliştirme</p>
+</footer>
+
+<script>
+  function toggleStep(header) {
+    const step = header.closest('.step');
+    step.classList.toggle('open');
+  }
+
+  const checkItems = document.querySelectorAll('.check-item');
+  function updateProgress() {
+    const done = document.querySelectorAll('.check-item.done').length;
+    const total = checkItems.length;
+    const pct = Math.round((done / total) * 100);
+    document.getElementById('progress-bar').style.width = pct + '%';
+    document.getElementById('progress-label').textContent = done + ' / ' + total + ' tamamlandı';
+  }
+  function toggleCheck(el) {
+    el.classList.toggle('done');
+    el.querySelector('.check-box').textContent = el.classList.contains('done') ? '✓' : '';
+    updateProgress();
+  }
+
+  // Open all steps by default on mobile for print friendliness
+  if (window.innerWidth < 600) {
+    document.querySelectorAll('.step').forEach(s => s.classList.add('open'));
+  }
+</script>
+</body>
+</html>

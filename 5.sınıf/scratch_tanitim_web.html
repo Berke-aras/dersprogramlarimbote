@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Scratch'e Hoş Geldiniz! 🐱</title>
+  <style>
+    :root {
+      --orange: #ff8c00;
+      --orange-light: #ffa733;
+      --orange-pale: #fff3e0;
+      --blue: #4c97ff;
+      --blue-dark: #2a6ed4;
+      --purple: #9966ff;
+      --green: #59c059;
+      --yellow: #ffab19;
+      --red: #ff6680;
+      --teal: #5cb1d6;
+      --bg: #f8f9fa;
+      --dark: #1a1a2e;
+      --card: #ffffff;
+      --shadow: 0 4px 20px rgba(0,0,0,0.10);
+      --radius: 16px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: var(--bg);
+      color: var(--dark);
+      line-height: 1.6;
+    }
+
+    /* ─── HERO ───────────────────────────────────────────── */
+    .hero {
+      background: linear-gradient(135deg, #ff8c00 0%, #ff6b35 40%, #ff4a7b 100%);
+      color: white;
+      padding: 60px 20px 80px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.07'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+    .hero-cat {
+      font-size: 5rem;
+      margin-bottom: 16px;
+      display: block;
+      animation: bounce 2s infinite;
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-12px); }
+    }
+    .hero h1 {
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 800;
+      margin-bottom: 12px;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    }
+    .hero p {
+      font-size: 1.2rem;
+      opacity: 0.95;
+      max-width: 600px;
+      margin: 0 auto 28px;
+    }
+    .hero-badge {
+      display: inline-block;
+      background: rgba(255,255,255,0.25);
+      border: 2px solid rgba(255,255,255,0.5);
+      border-radius: 30px;
+      padding: 8px 22px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      backdrop-filter: blur(6px);
+    }
+
+    /* ─── MAIN LAYOUT ────────────────────────────────────── */
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: var(--dark);
+    }
+    .section-subtitle {
+      text-align: center;
+      color: #666;
+      margin-bottom: 36px;
+      font-size: 1.05rem;
+    }
+
+    /* ─── WHAT IS SCRATCH ────────────────────────────────── */
+    .what-card {
+      background: var(--card);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 36px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 36px;
+      align-items: center;
+      margin-bottom: 60px;
+    }
+    @media(max-width:680px) { .what-card { grid-template-columns: 1fr; } }
+    .what-text h2 { font-size: 1.7rem; color: var(--orange); margin-bottom: 14px; }
+    .what-text p { color: #444; margin-bottom: 12px; font-size: 1.05rem; }
+    .what-text .tag {
+      display: inline-block;
+      background: var(--orange-pale);
+      color: var(--orange);
+      border-radius: 20px;
+      padding: 4px 14px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      margin: 3px;
+    }
+    .mit-badge {
+      background: linear-gradient(135deg, #1a1a2e, #16213e);
+      color: white;
+      border-radius: var(--radius);
+      padding: 24px;
+      text-align: center;
+    }
+    .mit-badge .big-emoji { font-size: 3.5rem; margin-bottom: 10px; display: block; }
+    .mit-badge h3 { font-size: 1.2rem; margin-bottom: 8px; }
+    .mit-badge p { font-size: 0.9rem; opacity: 0.8; }
+    .mit-badge a { color: var(--orange-light); text-decoration: none; font-weight: 600; }
+
+    /* ─── INTERFACE MAP ──────────────────────────────────── */
+    .interface-section { margin-bottom: 60px; }
+    .interface-map {
+      background: var(--card);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 30px;
+      position: relative;
+    }
+    .scratch-ui {
+      display: grid;
+      grid-template-columns: 200px 1fr 260px;
+      grid-template-rows: 50px 280px 120px;
+      gap: 6px;
+      margin-bottom: 28px;
+    }
+    @media(max-width:750px) {
+      .scratch-ui { grid-template-columns: 1fr 1fr; grid-template-rows: auto; }
+    }
+    .ui-area {
+      border-radius: 10px;
+      padding: 12px;
+      font-weight: 700;
+      font-size: 0.85rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      border: 3px solid transparent;
+    }
+    .ui-area:hover { transform: scale(1.03); box-shadow: 0 6px 20px rgba(0,0,0,0.15); }
+    .ui-area.active { border-color: var(--orange); }
+    .ui-area .area-icon { font-size: 2rem; margin-bottom: 6px; }
+    .ui-area .area-name { font-size: 0.8rem; margin-top: 4px; }
+
+    .area-menu   { background: #1e293b; color: white; grid-column: 1/4; grid-row: 1; border-radius: 10px; flex-direction: row; justify-content: flex-start; gap: 16px; padding: 0 20px; font-size: 0.8rem; }
+    .area-blocks { background: #fff8e1; color: #5a3e00; grid-column: 1; grid-row: 2/4; }
+    .area-stage  { background: #e8f5e9; color: #1b5e20; grid-column: 2; grid-row: 2; }
+    .area-code   { background: #e3f2fd; color: #0d47a1; grid-column: 2; grid-row: 3; }
+    .area-sprite { background: #fce4ec; color: #880e4f; grid-column: 3; grid-row: 2/4; }
+
+    .info-panel {
+      background: var(--orange-pale);
+      border-left: 4px solid var(--orange);
+      border-radius: 8px;
+      padding: 16px 20px;
+      margin-top: 10px;
+      display: none;
+    }
+    .info-panel.visible { display: block; }
+    .info-panel h4 { color: var(--orange); margin-bottom: 6px; font-size: 1rem; }
+    .info-panel p { font-size: 0.95rem; color: #444; }
+    .area-legend {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 10px;
+      margin-top: 16px;
+    }
+    .legend-item {
+      display: flex; align-items: center; gap: 10px;
+      background: #f5f5f5; border-radius: 8px; padding: 10px 12px;
+      cursor: pointer; transition: background 0.2s;
+      font-size: 0.85rem;
+    }
+    .legend-item:hover { background: #ffe0b2; }
+    .legend-dot {
+      width: 14px; height: 14px; border-radius: 50%; flex-shrink: 0;
+    }
+
+    /* ─── CODE BLOCKS ────────────────────────────────────── */
+    .blocks-section { margin-bottom: 60px; }
+    .categories-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 16px;
+      margin-bottom: 30px;
+    }
+    .cat-card {
+      border-radius: 12px;
+      padding: 20px 16px;
+      text-align: center;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      color: white;
+      font-weight: 700;
+    }
+    .cat-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0,0,0,0.18); }
+    .cat-card .cat-icon { font-size: 2.2rem; margin-bottom: 8px; display: block; }
+    .cat-card .cat-name { font-size: 1rem; margin-bottom: 4px; }
+    .cat-card .cat-color { font-size: 0.78rem; opacity: 0.85; }
+
+    .cat-hareket { background: linear-gradient(135deg, #4c97ff, #2a6ed4); }
+    .cat-gorunum  { background: linear-gradient(135deg, #9966ff, #7a4fcc); }
+    .cat-ses      { background: linear-gradient(135deg, #cf63cf, #a348a3); }
+    .cat-olaylar  { background: linear-gradient(135deg, #ffab19, #d6850f); }
+    .cat-kontrol  { background: linear-gradient(135deg, #ffab19, #ff8c00); }
+    .cat-algilama { background: linear-gradient(135deg, #5cb1d6, #3a8fb5); }
+    .cat-operator { background: linear-gradient(135deg, #59c059, #3a8a3a); }
+    .cat-degisken { background: linear-gradient(135deg, #ff8c1a, #cc6600); }
+
+    .block-demo {
+      background: #1e293b;
+      border-radius: var(--radius);
+      padding: 28px;
+      margin-top: 20px;
+    }
+    .block-demo h3 { color: white; margin-bottom: 16px; font-size: 1.1rem; }
+    .scratch-block {
+      display: inline-flex; align-items: center; gap: 6px;
+      border-radius: 6px; padding: 8px 14px;
+      font-size: 0.9rem; font-weight: 700; color: white;
+      margin: 4px; cursor: default;
+      box-shadow: 0 3px 0 rgba(0,0,0,0.3);
+      position: relative;
+    }
+    .scratch-block::before {
+      content: '';
+      position: absolute; top: -6px; left: 12px;
+      width: 0; height: 0;
+      border-left: 8px solid transparent;
+      border-right: 8px solid transparent;
+    }
+    .scratch-block.notch::before {
+      border-bottom: 6px solid currentColor;
+    }
+
+    .block-motion { background: #4c97ff; }
+    .block-looks  { background: #9966ff; }
+    .block-sound  { background: #cf63cf; }
+    .block-events { background: #ffab19; }
+    .block-control { background: #ffab19; border-left: 4px solid #ff8c00; }
+    .block-sensing { background: #5cb1d6; }
+
+    .block-stack {
+      display: flex; flex-direction: column; gap: 2px;
+      background: #2d3748; border-radius: 10px;
+      padding: 16px 20px; max-width: 280px;
+    }
+    .block-stack .stack-label {
+      color: #94a3b8; font-size: 0.78rem; margin-bottom: 8px; font-weight: 600;
+    }
+
+    /* ─── FIRST PROJECT ──────────────────────────────────── */
+    .project-section { margin-bottom: 60px; }
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 20px;
+    }
+    .step-card {
+      background: var(--card);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 24px;
+      border-top: 4px solid var(--orange);
+      transition: transform 0.2s;
+    }
+    .step-card:hover { transform: translateY(-3px); }
+    .step-number {
+      width: 40px; height: 40px;
+      border-radius: 50%; background: var(--orange);
+      color: white; font-weight: 800; font-size: 1.1rem;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 12px;
+    }
+    .step-card h3 { font-size: 1rem; margin-bottom: 8px; color: var(--dark); }
+    .step-card p { font-size: 0.9rem; color: #555; }
+    .step-card .step-code {
+      background: #1e293b; color: #93c5fd;
+      border-radius: 6px; padding: 8px 12px;
+      font-size: 0.82rem; font-family: monospace;
+      margin-top: 10px;
+    }
+
+    /* ─── TIPS ───────────────────────────────────────────── */
+    .tips-section {
+      background: linear-gradient(135deg, #1a1a2e, #16213e);
+      border-radius: var(--radius);
+      padding: 40px;
+      margin-bottom: 60px;
+      color: white;
+    }
+    .tips-section h2 { color: var(--orange-light); margin-bottom: 24px; font-size: 1.6rem; text-align: center; }
+    .tips-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 16px;
+    }
+    .tip-item {
+      background: rgba(255,255,255,0.08);
+      border-radius: 12px;
+      padding: 18px;
+      border-left: 3px solid var(--orange);
+    }
+    .tip-item .tip-icon { font-size: 1.8rem; margin-bottom: 8px; display: block; }
+    .tip-item h4 { font-size: 0.95rem; margin-bottom: 6px; color: var(--orange-light); }
+    .tip-item p { font-size: 0.85rem; opacity: 0.85; }
+
+    /* ─── QUIZ ───────────────────────────────────────────── */
+    .quiz-section { margin-bottom: 60px; }
+    .quiz-card {
+      background: var(--card);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 36px;
+    }
+    .quiz-q { margin-bottom: 28px; }
+    .quiz-q h4 { font-size: 1.05rem; margin-bottom: 14px; color: var(--dark); }
+    .quiz-q h4 span { color: var(--orange); font-weight: 800; }
+    .options { display: flex; flex-wrap: wrap; gap: 10px; }
+    .opt-btn {
+      background: #f1f5f9;
+      border: 2px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 10px 18px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-weight: 600;
+      color: var(--dark);
+    }
+    .opt-btn:hover { background: var(--orange-pale); border-color: var(--orange); }
+    .opt-btn.correct { background: #dcfce7; border-color: #16a34a; color: #15803d; }
+    .opt-btn.wrong   { background: #fee2e2; border-color: #dc2626; color: #b91c1c; }
+    .quiz-feedback { margin-top: 8px; font-size: 0.9rem; display: none; }
+    .quiz-feedback.show { display: block; }
+
+    /* ─── FOOTER ─────────────────────────────────────────── */
+    footer {
+      text-align: center;
+      padding: 30px 20px;
+      background: #1e293b;
+      color: #94a3b8;
+      font-size: 0.9rem;
+    }
+    footer a { color: var(--orange-light); text-decoration: none; }
+    .footer-cat { font-size: 2rem; display: block; margin-bottom: 8px; }
+  </style>
+</head>
+<body>
+
+<!-- ─── HERO ─────────────────────────────────────────────────── -->
+<div class="hero">
+  <span class="hero-cat">🐱</span>
+  <h1>Scratch'e Hoş Geldiniz!</h1>
+  <p>Blok tabanlı programlama dünyasına ilk adımınızı atıyorsunuz. Kod yazmadan oyun, animasyon ve hikâye oluşturacaksınız!</p>
+  <span class="hero-badge">🏫 5. Sınıf · Bilişim Teknolojileri ve Yazılım</span>
+</div>
+
+<!-- ─── WHAT IS SCRATCH ────────────────────────────────────────── -->
+<div class="container">
+  <div class="what-card">
+    <div class="what-text">
+      <h2>🧩 Scratch Nedir?</h2>
+      <p>Scratch, <strong>tıpkı LEGO parçaları gibi</strong> renkli kod bloklarını bir araya getirerek program yazmanızı sağlayan ücretsiz bir platformdur.</p>
+      <p>Kod bloklarını sürükle-bırak yöntemiyle birleştirerek oyun, animasyon, hikâye ve çizgi film oluşturabilirsiniz. Herhangi bir programlama deneyimine ihtiyaç yoktur!</p>
+      <p>
+        <span class="tag">🎮 Oyun</span>
+        <span class="tag">🎬 Animasyon</span>
+        <span class="tag">📖 Hikâye</span>
+        <span class="tag">🎵 Müzik</span>
+        <span class="tag">🎨 Çizim</span>
+      </p>
+    </div>
+    <div class="mit-badge">
+      <span class="big-emoji">🎓</span>
+      <h3>MIT tarafından geliştirildi!</h3>
+      <p>Scratch, ABD'deki <strong>Massachusetts Teknoloji Enstitüsü (MIT)</strong> tarafından öğrenciler için tasarlanmıştır.</p>
+      <br>
+      <p>Hemen başlamak için:<br>
+        <a href="https://scratch.mit.edu" target="_blank">scratch.mit.edu →</a>
+      </p>
+    </div>
+  </div>
+
+  <!-- ─── INTERFACE MAP ──────────────────────────────────────────── -->
+  <div class="interface-section">
+    <h2 class="section-title">🖥️ Scratch Arayüzü</h2>
+    <p class="section-subtitle">Aşağıdaki alanlara tıklayarak her bölümün ne işe yaradığını öğrenin!</p>
+
+    <div class="interface-map">
+      <div class="scratch-ui">
+        <div class="ui-area area-menu">
+          <span>📁 Dosya</span>
+          <span>✏️ Düzenle</span>
+          <span>🔧 Araçlar</span>
+          <span>❓ Yardım</span>
+        </div>
+        <div class="ui-area area-blocks" onclick="showInfo('blocks')">
+          <span class="area-icon">🟦</span>
+          <strong>Kod Blokları</strong>
+          <span class="area-name">Hareket, Görünüm, Ses…</span>
+        </div>
+        <div class="ui-area area-stage" onclick="showInfo('stage')">
+          <span class="area-icon">🐱</span>
+          <strong>Sahne</strong>
+          <span class="area-name">Projenizin oynadığı ekran</span>
+        </div>
+        <div class="ui-area area-code" onclick="showInfo('code')">
+          <span class="area-icon">🖱️</span>
+          <strong>Çalışma Alanı</strong>
+          <span class="area-name">Blokları buraya sürükleyin</span>
+        </div>
+        <div class="ui-area area-sprite" onclick="showInfo('sprite')">
+          <span class="area-icon">🐱🌳</span>
+          <strong>Kukla & Dekor</strong>
+          <span class="area-name">Karakter ve arka plan</span>
+        </div>
+      </div>
+
+      <div id="info-blocks" class="info-panel">
+        <h4>🟦 Kod Blokları Alanı</h4>
+        <p>Farklı renkli kategoriler halinde düzenlenmiş <strong>komut blokları</strong> burada bulunur. Her renk farklı bir kategoriyi temsil eder: Hareket (mavi), Görünüm (mor), Ses (pembe), Olaylar (sarı), Kontrol (turuncu)…</p>
+      </div>
+      <div id="info-stage" class="info-panel">
+        <h4>🎬 Sahne Alanı</h4>
+        <p>Projenizin <strong>hayata geçtiği</strong> ekran. Kuklalar burada görünür ve hareketlerini burada yapar. Yeşil bayrağa basarak projenizi başlatabilir, kırmızı sekizgene basarak durdurabilirsiniz.</p>
+      </div>
+      <div id="info-code" class="info-panel">
+        <h4>🖱️ Çalışma Alanı</h4>
+        <p>Kod bloklarını <strong>sürükle-bırak</strong> yöntemiyle bu alana taşıyarak birbirine bağlarsınız. Birbirine bağlanan bloklar yukarıdan aşağıya doğru sırayla çalışır.</p>
+      </div>
+      <div id="info-sprite" class="info-panel">
+        <h4>🐱 Kukla & Dekor Alanı</h4>
+        <p><strong>Kukla:</strong> Projenizin karakteri. Scratch'in maskotu kedi varsayılan kukladır. Yeni kuklalar ekleyebilir veya kendiniz çizebilirsiniz. <br><strong>Dekor:</strong> Sahnenin arka planı. Kütüphaneden hazır dekor seçebilir veya kendi dekorunuzu yükleyebilirsiniz.</p>
+      </div>
+
+      <div class="area-legend">
+        <div class="legend-item" onclick="showInfo('blocks')">
+          <div class="legend-dot" style="background:#4c97ff"></div> Kod Blokları
+        </div>
+        <div class="legend-item" onclick="showInfo('stage')">
+          <div class="legend-dot" style="background:#59c059"></div> Sahne
+        </div>
+        <div class="legend-item" onclick="showInfo('code')">
+          <div class="legend-dot" style="background:#4c97ff88"></div> Çalışma Alanı
+        </div>
+        <div class="legend-item" onclick="showInfo('sprite')">
+          <div class="legend-dot" style="background:#ff6680"></div> Kukla & Dekor
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── CODE CATEGORIES ────────────────────────────────────────── -->
+  <div class="blocks-section">
+    <h2 class="section-title">🎨 Kod Bloğu Kategorileri</h2>
+    <p class="section-subtitle">Her renk farklı bir kategoriyi temsil eder. Bugün en çok mavi, sarı ve mor kategorileri kullanacağız!</p>
+
+    <div class="categories-grid">
+      <div class="cat-card cat-hareket">
+        <span class="cat-icon">🚀</span>
+        <div class="cat-name">Hareket</div>
+        <div class="cat-color">● Mavi</div>
+      </div>
+      <div class="cat-card cat-gorunum">
+        <span class="cat-icon">👁️</span>
+        <div class="cat-name">Görünüm</div>
+        <div class="cat-color">● Mor</div>
+      </div>
+      <div class="cat-card cat-ses">
+        <span class="cat-icon">🎵</span>
+        <div class="cat-name">Ses</div>
+        <div class="cat-color">● Pembe</div>
+      </div>
+      <div class="cat-card cat-olaylar">
+        <span class="cat-icon">⚡</span>
+        <div class="cat-name">Olaylar</div>
+        <div class="cat-color">● Sarı</div>
+      </div>
+      <div class="cat-card cat-kontrol">
+        <span class="cat-icon">🔄</span>
+        <div class="cat-name">Kontrol</div>
+        <div class="cat-color">● Turuncu</div>
+      </div>
+      <div class="cat-card cat-algilama">
+        <span class="cat-icon">🔍</span>
+        <div class="cat-name">Algılama</div>
+        <div class="cat-color">● Açık Mavi</div>
+      </div>
+      <div class="cat-card cat-operator">
+        <span class="cat-icon">➕</span>
+        <div class="cat-name">Operatörler</div>
+        <div class="cat-color">● Yeşil</div>
+      </div>
+      <div class="cat-card cat-degisken">
+        <span class="cat-icon">📦</span>
+        <div class="cat-name">Değişkenler</div>
+        <div class="cat-color">● Kahverengi-Turuncu</div>
+      </div>
+    </div>
+
+    <div class="block-demo">
+      <h3>💡 İlk Projen İçin Kullanacağın Bloklar:</h3>
+      <div style="display:flex; flex-wrap:wrap; gap:20px; align-items:flex-start; margin-top:14px;">
+        <div class="block-stack">
+          <div class="stack-label">📋 Kod Sırası:</div>
+          <div class="scratch-block block-events">🟡 yeşil bayrak tıklandığında</div>
+          <div class="scratch-block block-motion">🔵 10 adım git</div>
+          <div class="scratch-block block-looks">🟣 2 sn boyunca Merhaba! de</div>
+          <div class="scratch-block block-control">🟠 1 saniye bekle</div>
+          <div class="scratch-block block-motion">🔵 kenara geldiyse sek</div>
+        </div>
+        <div style="color: #94a3b8; font-size:0.9rem; max-width:280px;">
+          <p style="margin-bottom:10px;">👆 Bu blokları sürükleyip birleştirdiğinizde kedi:</p>
+          <ul style="padding-left:18px; line-height:1.8;">
+            <li>Yeşil bayrağa basınca başlar</li>
+            <li>10 adım ileri gider</li>
+            <li>2 saniye "Merhaba!" der</li>
+            <li>1 saniye bekler</li>
+            <li>Kenara gelince geri döner</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── STEP BY STEP ───────────────────────────────────────────── -->
+  <div class="project-section">
+    <h2 class="section-title">🎯 İlk Projen: "Merhaba Scratch!"</h2>
+    <p class="section-subtitle">Adım adım bu talimatları takip ederek ilk Scratch projeni oluştur!</p>
+
+    <div class="steps-grid">
+      <div class="step-card">
+        <div class="step-number">1</div>
+        <h3>Scratch'i Aç</h3>
+        <p>Tarayıcında <strong>scratch.mit.edu</strong> adresine git ve "Yaratmaya Başla" düğmesine tıkla.</p>
+        <div class="step-code">scratch.mit.edu → Yaratmaya Başla</div>
+      </div>
+      <div class="step-card">
+        <div class="step-number">2</div>
+        <h3>Kediyi Bul</h3>
+        <p>Sahneye bak! <strong>Varsayılan kedi kuklası</strong> zaten orada. Kukla alanında onu görebilirsin.</p>
+        <div class="step-code">Kukla Alanı → 🐱 Sprite1 (Kedi)</div>
+      </div>
+      <div class="step-card">
+        <div class="step-number">3</div>
+        <h3>İlk Bloğu Ekle</h3>
+        <p><strong>Olaylar (sarı)</strong> kategorisine tıkla. "Yeşil bayrak tıklandığında" bloğunu çalışma alanına sürükle.</p>
+        <div class="step-code">Olaylar → yeşil bayrak tıklandığında</div>
+      </div>
+      <div class="step-card">
+        <div class="step-number">4</div>
+        <h3>Hareketi Ekle</h3>
+        <p><strong>Hareket (mavi)</strong> kategorisinden "10 adım git" bloğunu alıp ilk bloğun altına tak.</p>
+        <div class="step-code">Hareket → 10 adım git</div>
+      </div>
+      <div class="step-card">
+        <div class="step-number">5</div>
+        <h3>Konuşmayı Ekle</h3>
+        <p><strong>Görünüm (mor)</strong> kategorisinden "2 saniye boyunca Merhaba! de" bloğunu ekle. Metni kendi adınla değiştir!</p>
+        <div class="step-code">Görünüm → 2 sn boyunca [ad] de</div>
+      </div>
+      <div class="step-card">
+        <div class="step-number">6</div>
+        <h3>Test Et! 🎉</h3>
+        <p>Sahnenin üstündeki <strong>yeşil bayrağa</strong> tıkla ve kediyi izle! Çalışıyor mu? Tebrikler, ilk projen hazır!</p>
+        <div class="step-code">▶ Yeşil Bayrak → Çalıştır!</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── TIPS ───────────────────────────────────────────────────── -->
+  <div class="tips-section">
+    <h2>⚡ Scratch Kullanırken Bunları Bil!</h2>
+    <div class="tips-grid">
+      <div class="tip-item">
+        <span class="tip-icon">🖱️</span>
+        <h4>Sürükle-Bırak</h4>
+        <p>Blokları sol fare tuşuyla tutup çalışma alanına sürükle. Birbirine yaklaştırınca kendiliğinden yapışır!</p>
+      </div>
+      <div class="tip-item">
+        <span class="tip-icon">🗑️</span>
+        <h4>Sil!</h4>
+        <p>Bir bloğu silmek için üzerine sağ tıkla ve "Sil" seç, ya da bloklar alanına geri sürükle.</p>
+      </div>
+      <div class="tip-item">
+        <span class="tip-icon">🔄</span>
+        <h4>Geri Al</h4>
+        <p>Hata yaptın mı? Endişelenme! <strong>Ctrl + Z</strong> tuşlarıyla son işlemi geri alabilirsin.</p>
+      </div>
+      <div class="tip-item">
+        <span class="tip-icon">💾</span>
+        <h4>Kaydet</h4>
+        <p>Projeyi kaybet diye korkma. Üst menüden "Dosya → Bilgisayara Kaydet" ile istediğin zaman kaydet.</p>
+      </div>
+      <div class="tip-item">
+        <span class="tip-icon">🐛</span>
+        <h4>Hata Oldu mu?</h4>
+        <p>Program beklendiği gibi çalışmıyorsa bu bir "bug". Blokların sırasını ve bağlantılarını kontrol et!</p>
+      </div>
+      <div class="tip-item">
+        <span class="tip-icon">🌍</span>
+        <h4>Topluluğa Katıl</h4>
+        <p>Projeni tamamladıktan sonra scratch.mit.edu'da paylaşarak milyonlarca kullanıcıyla buluşabilirsin!</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── QUIZ ───────────────────────────────────────────────────── -->
+  <div class="quiz-section">
+    <h2 class="section-title">🧠 Öğrendiklerini Test Et!</h2>
+    <p class="section-subtitle">3 kısa soruyla bugün ne öğrendiğini görelim.</p>
+
+    <div class="quiz-card">
+      <div class="quiz-q">
+        <h4><span>S1.</span> Scratch'te projenin karakterlerine ne denir?</h4>
+        <div class="options">
+          <button class="opt-btn" onclick="answer(this, false, 'q1')">Aktör</button>
+          <button class="opt-btn" onclick="answer(this, true, 'q1')">Kukla (Sprite)</button>
+          <button class="opt-btn" onclick="answer(this, false, 'q1')">Nesne</button>
+          <button class="opt-btn" onclick="answer(this, false, 'q1')">Kahraman</button>
+        </div>
+        <div id="q1-feedback" class="quiz-feedback"></div>
+      </div>
+
+      <div class="quiz-q">
+        <h4><span>S2.</span> Hangi blok, projeyi başlatmak için kullanılır?</h4>
+        <div class="options">
+          <button class="opt-btn" onclick="answer(this, false, 'q2')">kırmızı sekizgen tıklandığında</button>
+          <button class="opt-btn" onclick="answer(this, true, 'q2')">yeşil bayrak tıklandığında</button>
+          <button class="opt-btn" onclick="answer(this, false, 'q2')">1 saniye bekle</button>
+          <button class="opt-btn" onclick="answer(this, false, 'q2')">10 adım git</button>
+        </div>
+        <div id="q2-feedback" class="quiz-feedback"></div>
+      </div>
+
+      <div class="quiz-q">
+        <h4><span>S3.</span> Hareket kategorisindeki bloklar hangi renktedir?</h4>
+        <div class="options">
+          <button class="opt-btn" onclick="answer(this, false, 'q3')">Mor</button>
+          <button class="opt-btn" onclick="answer(this, false, 'q3')">Sarı</button>
+          <button class="opt-btn" onclick="answer(this, true, 'q3')">Mavi</button>
+          <button class="opt-btn" onclick="answer(this, false, 'q3')">Yeşil</button>
+        </div>
+        <div id="q3-feedback" class="quiz-feedback"></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ─── FOOTER ────────────────────────────────────────────────── -->
+<footer>
+  <span class="footer-cat">🐱</span>
+  <p>Hazırlayan: Bilişim Teknolojileri ve Yazılım Öğretmeni &nbsp;|&nbsp;
+    5. Sınıf &nbsp;|&nbsp; TYMM – 6. Tema: Yazılım Tasarımı ve Programlama</p>
+  <p style="margin-top:6px;">
+    <a href="https://scratch.mit.edu" target="_blank">scratch.mit.edu</a> &nbsp;·&nbsp;
+    <a href="https://tymm.meb.gov.tr" target="_blank">tymm.meb.gov.tr</a>
+  </p>
+</footer>
+
+<script>
+  function showInfo(area) {
+    document.querySelectorAll('.info-panel').forEach(p => p.classList.remove('visible'));
+    document.getElementById('info-' + area).classList.add('visible');
+    document.querySelectorAll('.ui-area').forEach(a => a.classList.remove('active'));
+  }
+
+  function answer(btn, correct, qid) {
+    const parent = btn.closest('.quiz-q');
+    parent.querySelectorAll('.opt-btn').forEach(b => {
+      b.disabled = true;
+      b.style.opacity = '0.7';
+    });
+    btn.style.opacity = '1';
+    btn.classList.add(correct ? 'correct' : 'wrong');
+
+    const feedback = document.getElementById(qid + '-feedback');
+    feedback.classList.add('show');
+    if (correct) {
+      feedback.style.color = '#16a34a';
+      feedback.textContent = '✅ Doğru! Harika iş!';
+    } else {
+      feedback.style.color = '#dc2626';
+      const correctBtn = parent.querySelector('.opt-btn[onclick*="true"]');
+      if (correctBtn) correctBtn.classList.add('correct');
+      feedback.textContent = '❌ Yanlış. Doğru cevap yeşille işaretlendi.';
+    }
+  }
+</script>
+
+</body>
+</html>
