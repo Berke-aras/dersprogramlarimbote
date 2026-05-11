@@ -75,7 +75,7 @@
                     <div class="action-buttons">
                         <button onclick="viewDoc('5.sınıf/ders_plani_scratch_5sinif.docx')"
                             class="btn view-btn">Görüntüle</button>
-                        <a href="5.sınıf/ders_plani_scratch_5sinif.docx" download class="btn download-btn">İndir</a>
+                        <a href="5.sınıf/ders_plani_scratch_5sinif.docx" download="ders_plani_scratch_5sinif.docx" class="btn download-btn">İndir</a>
                     </div>
                 </li>
             </ul>
@@ -135,7 +135,7 @@
                     <div class="action-buttons">
                         <button onclick="viewDoc('6.sınıf/Akademik_Ders_Plani_Detayli.docx')"
                             class="btn view-btn">Görüntüle</button>
-                        <a href="6.sınıf/Akademik_Ders_Plani_Detayli.docx" download class="btn download-btn">İndir</a>
+                        <a href="6.sınıf/Akademik_Ders_Plani_Detayli.docx" download="Akademik_Ders_Plani_Detayli.docx" class="btn download-btn">İndir</a>
                     </div>
                 </li>
             </ul>
@@ -148,9 +148,20 @@
 
     <script>
         function viewDoc(relativePath) {
-            // Get the absolute URL of the file for the Office Viewer
-            const baseUrl = window.location.href.split('/').slice(0, -1).join('/');
-            const fullUrl = encodeURIComponent(baseUrl + '/' + relativePath);
+            let fullUrl = window.location.href.split('/').slice(0, -1).join('/') + '/' + relativePath;
+            
+            // GitHub Pages'den açılıyorsa, raw GitHub URL'e dönüştür
+            const hostname = window.location.hostname;
+            if (hostname.endsWith('.github.io')) {
+                const match = window.location.href.match(/https?:\/\/([^.]+)\.github\.io\/([^/]+)/);
+                if (match) {
+                    const username = match[1];
+                    const repo = match[2];
+                    fullUrl = `https://raw.githubusercontent.com/${username}/${repo}/main/${relativePath}`;
+                }
+            }
+            
+            fullUrl = encodeURIComponent(fullUrl);
             const viewerUrl = `https://view.officeapps.live.com/op/view.aspx?src=${fullUrl}`;
             window.open(viewerUrl, '_blank');
         }
